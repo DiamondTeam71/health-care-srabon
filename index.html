@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>স্বাস্থ্য সচেতনতা প্রশ্নাবলী</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap');
+
+        /* রিসেট স্টাইল */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Playfair Display', serif;
+            background: linear-gradient(135deg, #f0f4f8, #d9e2ec);
+            color: #333;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5em;
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+        }
+
+        form {
+            font-family: 'Playfair Display', serif;
+            background: #ffffff;
+            padding: 30px 40px;
+            border-radius: 10px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            max-width: 700px;
+            width: 100%;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        form:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        label {
+            display: block;
+            margin: 15px 0 5px;
+            font-size: 1.1em;
+            color: #2c3e50;
+            font-weight: 700;
+        }
+
+        input[type="text"], input[type="button"] {
+            font-family: 'Playfair Display', serif;
+            width: 100%;
+            padding: 12px 15px;
+            margin-bottom: 15px;
+            border: 2px solid #3498db;
+            border-radius: 5px;
+            font-size: 1em;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        input[type="text"]:focus {
+            border-color: #2980b9;
+            box-shadow: 0 0 8px rgba(41, 128, 185, 0.3);
+            outline: none;
+        }
+
+        input[type="text"]:hover {
+            border-color: #2980b9;
+        }
+
+        .radio-group {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+
+        .radio-label {
+            font-family: 'Playfair Display', serif;
+            flex: 1;
+            display: flex;
+            align-items: center;
+            font-size: 1em;
+            cursor: pointer;
+            padding: 10px;
+            border: 2px solid #bdc3c7;
+            border-radius: 5px;
+            margin-right: 10px;
+            transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+            text-align: center;
+        }
+
+        .radio-label:last-child {
+            margin-right: 0;
+        }
+
+        .radio-label input {
+            margin-right: 10px;
+        }
+
+        /* হ্যাঁ এবং না এর জন্য আলাদা স্টাইল */
+        .yes-label {
+            border-color: #27ae60;
+        }
+
+        .yes-label:hover {
+            background-color: #27ae60;
+            color: #fff;
+            border-color: #1e8449;
+        }
+
+        .no-label {
+            border-color: #c0392b;
+        }
+
+        .no-label:hover {
+            background-color: #c0392b;
+            color: #fff;
+            border-color: #a93226;
+        }
+
+        input[type="button"] {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 1.1em;
+            transition: background-color 0.3s, transform 0.2s;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        input[type="button"]:hover {
+            background-color: #2980b9;
+            transform: scale(1.02);
+        }
+
+        #result {
+            background: #ecf0f1;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+            font-size: 1.2em;
+            color: #2c3e50;
+            animation: fadeIn 1s ease-in-out;
+            width: 100%;
+            text-align: center;
+        }
+
+        /* স্টাইলিং মেসেজ */
+        .error {
+            color: #e74c3c;
+            background-color: #f9ebea;
+            border: 1px solid #e74c3c;
+        }
+
+        footer {
+            background: #2980b9;
+            color: #fff;
+            text-align: center;
+            padding: 25px 20px;
+            width: 100%;
+            box-sizing: border-box;
+            margin-top: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        footer p {
+            margin: 10px 0;
+            font-size: 1em;
+            font-weight: 500;
+            color: #ffffff;
+            animation: slideIn 1s ease-in-out;
+        }
+
+        footer a {
+            color: #ffd700;
+            text-decoration: none;
+            margin: 0 10px;
+            transition: color 0.3s, transform 0.3s;
+            font-weight: bold;
+        }
+
+        footer a:hover {
+            color: #ffffff;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.7);
+            transform: scale(1.1);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-10px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            form {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            label {
+                font-size: 1em;
+            }
+
+            .radio-label {
+                font-size: 0.95em;
+                padding: 8px;
+            }
+
+            input[type="button"] {
+                font-size: 1em;
+                padding: 12px;
+            }
+
+            #result {
+                font-size: 1.1em;
+            }
+
+            footer p {
+                font-size: 0.95em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .radio-group {
+                flex-direction: column;
+            }
+
+            .radio-label {
+                margin-right: 0;
+                margin-bottom: 10px;
+            }
+
+            .radio-label:last-child {
+                margin-bottom: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>🥰 স্বাস্থ্য বিষয়ে হই সচেতন 🥰</h1>
+    <form id="surveyForm">
+        <label for="name">অংশগ্রহণকারীর নাম:</label>
+        <input type="text" id="name" name="name" placeholder="আপনার নাম লিখুন" required>
+
+        <div class="question">
+            <label>১. তুমি কি প্রতিদিন শরীরচর্চা করো?</label>
+            <div class="radio-group">
+                <label class="radio-label yes-label">
+                    <input type="radio" name="exercise" value="হ্যাঁ" required> হ্যাঁ ✔️
+                </label>
+                <label class="radio-label no-label">
+                    <input type="radio" name="exercise" value="না"> না ❌
+                </label>
+            </div>
+        </div>
+
+        <div class="question">
+            <label>২. তুমি কি প্রতিদিন সুষম খাদ্য গ্রহণ করো?</label>
+            <div class="radio-group">
+                <label class="radio-label yes-label">
+                    <input type="radio" name="diet" value="হ্যাঁ" required> হ্যাঁ ✔️
+                </label>
+                <label class="radio-label no-label">
+                    <input type="radio" name="diet" value="না"> না ❌
+                </label>
+            </div>
+        </div>
+
+        <div class="question">
+            <label>৩. তুমি কি প্রতিদিন ৮ ঘন্টা ঘুমাও?</label>
+            <div class="radio-group">
+                <label class="radio-label yes-label">
+                    <input type="radio" name="sleep" value="হ্যাঁ" required> হ্যাঁ ✔️
+                </label>
+                <label class="radio-label no-label">
+                    <input type="radio" name="sleep" value="না"> না ❌
+                </label>
+            </div>
+        </div>
+
+        <div class="question">
+            <label>৪. তুমি কি প্রতিদিন পর্যাপ্ত পরিমাণে পানি পান করো?</label>
+            <div class="radio-group">
+                <label class="radio-label yes-label">
+                    <input type="radio" name="water" value="হ্যাঁ" required> হ্যাঁ ✔️
+                </label>
+                <label class="radio-label no-label">
+                    <input type="radio" name="water" value="না"> না ❌
+                </label>
+            </div>
+        </div>
+
+        <div class="question">
+            <label>৫. তুমি কি প্রতিদিন তাজা ফল ও শাকসবজি খাও?</label>
+            <div class="radio-group">
+                <label class="radio-label yes-label">
+                    <input type="radio" name="fruits_veggies" value="হ্যাঁ" required> হ্যাঁ ✔️
+                </label>
+                <label class="radio-label no-label">
+                    <input type="radio" name="fruits_veggies" value="না"> না ❌
+                </label>
+            </div>
+        </div>
+
+        <div class="question">
+            <label>৬. তুমি কি স্বাস্থ্যকর খাদ্য তালিকা মেনে চলার চেষ্টা করো?</label>
+            <div class="radio-group">
+                <label class="radio-label yes-label">
+                    <input type="radio" name="healthy_diet" value="হ্যাঁ" required> হ্যাঁ ✔️
+                </label>
+                <label class="radio-label no-label">
+                    <input type="radio" name="healthy_diet" value="না"> না ❌
+                </label>
+            </div>
+        </div>
+
+        <div class="question">
+            <label>৭. তুমি কি নিয়মিত নিজের ওজন পর্যবেক্ষণ করো?</label>
+            <div class="radio-group">
+                <label class="radio-label yes-label">
+                    <input type="radio" name="weight_check" value="হ্যাঁ" required> হ্যাঁ ✔️
+                </label>
+                <label class="radio-label no-label">
+                    <input type="radio" name="weight_check" value="না"> না ❌
+                </label>
+            </div>
+        </div>
+
+        <div class="question">
+            <label>৮. তুমি কি প্রতিদিন বাহিরে কিছু সময় সূর্যের আলো গ্রহণ করো?</label>
+            <div class="radio-group">
+                <label class="radio-label yes-label">
+                    <input type="radio" name="sunlight" value="হ্যাঁ" required> হ্যাঁ ✔️
+                </label>
+                <label class="radio-label no-label">
+                    <input type="radio" name="sunlight" value="না"> না ❌
+                </label>
+            </div>
+        </div>
+
+        <div class="question">
+            <label>৯. তুমি কি সব সময় পরিষ্কার পরিচ্ছন্ন থাকার চেষ্টা করো?</label>
+            <div class="radio-group">
+                <label class="radio-label yes-label">
+                    <input type="radio" name="clean" value="হ্যাঁ" required> হ্যাঁ ✔️
+                </label>
+                <label class="radio-label no-label">
+                    <input type="radio" name="clean" value="না"> না ❌
+                </label>
+            </div>
+        </div>
+
+        <div class="question">
+            <label>১০. তুমি কি সময় মতো খাবার খাও, নাকি খাবারের সময়সূচিতে অনিয়ম ঘটে?</label>
+            <div class="radio-group">
+                <label class="radio-label yes-label">
+                    <input type="radio" name="meal_schedule" value="হ্যাঁ" required> হ্যাঁ ✔️
+                </label>
+                <label class="radio-label no-label">
+                    <input type="radio" name="meal_schedule" value="না"> না ❌
+                </label>
+            </div>
+        </div>
+
+        <input type="button" value="ফলাফল দেখুন" onclick="calculateScore()">
+        <input type="button" value="📨 সেন্ড 📨" onclick="sendData()">
+        <!-- নতুন রিসেট বাটন যোগ করা হয়েছে -->
+        <input type="button" value="ফর্ম রিসেট করুন" onclick="resetForm()">
+    </form>
+
+    <div id="result" style="display:none;"></div>
+
+    <script>
+        function calculateScore() {
+            const name = document.getElementById('name').value.trim();
+            const answers = [
+                document.querySelector('input[name="exercise"]:checked'),
+                document.querySelector('input[name="diet"]:checked'),
+                document.querySelector('input[name="sleep"]:checked'),
+                document.querySelector('input[name="water"]:checked'),
+                document.querySelector('input[name="fruits_veggies"]:checked'),
+                document.querySelector('input[name="healthy_diet"]:checked'),
+                document.querySelector('input[name="weight_check"]:checked'),
+                document.querySelector('input[name="sunlight"]:checked'),
+                document.querySelector('input[name="clean"]:checked'),
+                document.querySelector('input[name="meal_schedule"]:checked')
+            ];
+
+            // চেক করুন নামটি পূরণ হয়েছে কিনা
+            if (name === "") {
+                showMessage("অনুগ্রহ করে আপনার নাম পূরণ করুন", true);
+                return;
+            }
+
+            // চেক করুন সবগুলো প্রশ্নের উত্তর দেওয়া হয়েছে কিনা
+            for (let i = 0; i < answers.length; i++) {
+                if (!answers[i]) {
+                    showMessage("অনুগ্রহ করে আপনি আপনার সব প্রশ্নের উত্তর দিন আর নাম না পূরণ করে থাকলে সেটাও পূরণ করে নিন", true);
+                    return;
+                }
+            }
+
+            // সবগুলো প্রশ্ন পূরণ করা হয়েছে, স্কোর হিসাব করুন
+            let score = 0;
+            answers.forEach(answer => {
+                if (answer.value === "হ্যাঁ") {
+                    score++;
+                }
+            });
+
+            const percentage = (score / answers.length) * 100;
+            showMessage(`আপনি আপনার স্বাস্থ্য নিয়ে মোট সচেতন: ${percentage.toFixed(2)}%`, false);
+        }
+
+        function sendData() {
+            const name = document.getElementById('name').value.trim();
+            const answers = {
+                exercise: document.querySelector('input[name="exercise"]:checked').value,
+                diet: document.querySelector('input[name="diet"]:checked').value,
+                sleep: document.querySelector('input[name="sleep"]:checked').value,
+                water: document.querySelector('input[name="water"]:checked').value,
+                fruits_veggies: document.querySelector('input[name="fruits_veggies"]:checked').value,
+                healthy_diet: document.querySelector('input[name="healthy_diet"]:checked').value,
+                weight_check: document.querySelector('input[name="weight_check"]:checked').value,
+                sunlight: document.querySelector('input[name="sunlight"]:checked').value,
+                clean: document.querySelector('input[name="clean"]:checked').value,
+                meal_schedule: document.querySelector('input[name="meal_schedule"]:checked').value
+            };
+
+            const emailBody = `নাম: ${name}\n\n` +
+                Object.entries(answers).map(([key, value]) => `${translateKey(key)}: ${value}`).join('\n');
+
+            window.location.href = `mailto:diamondteam157@gmail.com?subject=স্বাস্থ্য সচেতনতা প্রশ্নাবলী&body=${encodeURIComponent(emailBody)}`;
+        }
+
+        // কীকে বাংলা ভাষায় অনুবাদ করার ফাংশন
+        function translateKey(key) {
+            const translations = {
+                exercise: "প্রতিদিন শরীরচর্চা",
+                diet: "সুষম খাদ্য গ্রহণ",
+                sleep: "৮ ঘন্টা ঘুম",
+                water: "পানি পান",
+                fruits_veggies: "তাজা ফল ও শাকসবজি",
+                healthy_diet: "স্বাস্থ্যকর খাদ্য তালিকা",
+                weight_check: "নিজের ওজন পর্যবেক্ষণ",
+                sunlight: "সূর্যের আলো গ্রহণ",
+                clean: "পরিষ্কার পরিচ্ছন্ন থাকা",
+                meal_schedule: "খাবারের সময়সূচি"
+            };
+            return translations[key] || key;
+        }
+
+        // মেসেজ প্রদর্শনের ফাংশন
+        function showMessage(message, isError) {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerText = message;
+            resultDiv.style.display = 'block';
+            if (isError) {
+                resultDiv.classList.remove('success');
+                resultDiv.classList.add('error');
+            } else {
+                resultDiv.classList.remove('error');
+                resultDiv.classList.add('success');
+            }
+        }
+
+        // ফর্ম রিসেট করার ফাংশন
+        function resetForm() {
+            document.getElementById('surveyForm').reset();
+            const resultDiv = document.getElementById('result');
+            resultDiv.style.display = 'none';
+            resultDiv.classList.remove('error', 'success');
+        }
+    </script>
+    
+    <footer>
+        <p>❤️ আমাদের স্বাস্থ্য বিষয়ক প্রশ্নের উত্তর দেওয়ার জন্য আপনাকে অসংখ্য ধন্যবাদ ❤️</p>
+        <p><strong>Contact Our Email Or Phone:</strong> ✉️ <a href="mailto:diamondteam157@gmail.com">diamondteam157@gmail.com</a> ✉️ Or <a href="tel:+8801301841691">+8801301841691</a></p>
+    </footer>
+</body>
+</html>
